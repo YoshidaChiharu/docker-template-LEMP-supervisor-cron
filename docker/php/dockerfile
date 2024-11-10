@@ -10,10 +10,13 @@ RUN apt update && apt install -y \
     default-mysql-client \
     zlib1g-dev \
     libzip-dev \
-    && docker-php-ext-install pdo_mysql zip
+    imagemagick libmagickwand-dev \
+    && pecl install imagick \
+    && docker-php-ext-install pdo_mysql zip \
+    && docker-php-ext-enable imagick
 
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
     && composer self-update
 
-WORKDIR /var/www
+WORKDIR /var/www/Rese

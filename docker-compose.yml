@@ -18,6 +18,24 @@ services:
     volumes:
       - ./src:/var/www
 
+  cron:
+    build:
+      context: ./docker/cron
+      dockerfile: dockerfile
+    volumes:
+      - ./src:/var/www
+    depends_on:
+      - php-fpm
+
+  supervisor:
+    build:
+      context: ./docker/supervisor
+      dockerfile: dockerfile
+    volumes:
+      - ./src:/var/www
+    depends_on:
+      - php-fpm
+
   mysql:
     image: mysql:8.0.37
     environment:

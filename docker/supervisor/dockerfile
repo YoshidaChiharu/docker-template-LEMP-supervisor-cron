@@ -1,0 +1,15 @@
+FROM php:8.3.7-fpm
+
+USER root
+RUN apt update && apt install -y \
+    supervisor \
+    default-mysql-client \
+    zlib1g-dev \
+    libzip-dev \
+    && docker-php-ext-install pdo_mysql zip
+
+COPY php.ini /usr/local/etc/php/
+COPY supervisord.conf /etc/supervisor/supervisord.conf
+COPY laravel-worker.conf /etc/supervisor/conf.d/laravel-worker.conf
+
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
