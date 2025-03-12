@@ -5,7 +5,7 @@ services:
     image: nginx:1.26.0
     volumes:
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - ./src:/var/www
+      - ./src/Rese:/var/www/Rese
     ports:
       - "80:80"
     depends_on:
@@ -16,14 +16,14 @@ services:
       context: ./docker/php
       dockerfile: dockerfile
     volumes:
-      - ./src:/var/www
+      - ./src/Rese:/var/www/Rese
 
   cron:
     build:
       context: ./docker/cron
       dockerfile: dockerfile
     volumes:
-      - ./src:/var/www
+      - ./src/Rese:/var/www/Rese
     depends_on:
       - php-fpm
 
@@ -32,7 +32,7 @@ services:
       context: ./docker/supervisor
       dockerfile: dockerfile
     volumes:
-      - ./src:/var/www
+      - ./src/Rese:/var/www/Rese
     depends_on:
       - php-fpm
 
@@ -49,7 +49,6 @@ services:
       - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
     ports:
       - "3306:3306"
-
 
   phpmyadmin:
     image: phpmyadmin
